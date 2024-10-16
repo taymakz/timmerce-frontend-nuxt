@@ -54,3 +54,17 @@ export function UserLogout(refresh: string): Promise<ApiResponseType<null>> {
     }),
   })
 }
+
+
+
+// User Forgot password Endpoints
+export function UserForgotPasswordCheck(
+  username: string,
+): Promise<ApiResponseType<null>> {
+  return FetchApi(`${basePrefix}forgot/password/check/`, {
+    method: 'POST',
+    body: {
+      username,
+    },
+  })
+}

@@ -4,9 +4,7 @@ import { appDesktopStartMinWidth, appTitle } from './constants'
 
 const color = useColorMode()
 const isDesktop = useMediaQuery(appDesktopStartMinWidth)
-useHead({
-  title: appTitle,
-})
+
 useAuthenticateStore().SetUserDetail()
 </script>
 
