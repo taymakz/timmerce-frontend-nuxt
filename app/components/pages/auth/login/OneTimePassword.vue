@@ -28,13 +28,16 @@ function getBack() {
   username.value = ''
   authenticateSection.value = AuthenticateSectionEnum.CHECK
 }
+
 function redirectToPassword() {
   authenticateSection.value = AuthenticateSectionEnum.PASSWORD
 }
+
 const { isPending, startTimer, getFormattedCounter, resetTimer } = useTimer({
   minute: 4,
 })
 onMounted(() => startTimer())
+
 async function requestNewOTP() {
   if (newOtpLoading.value || !validateUsername(username.value))
     return
@@ -53,6 +56,7 @@ async function requestNewOTP() {
     authenticateSection.value = AuthenticateSectionEnum.CHECK
   }
 }
+
 function getMessage(): string {
   if (validatePhoneNumber(username.value))
     return `کد تایید به شماره ${username.value} پیامک شد`
@@ -60,6 +64,7 @@ function getMessage(): string {
     return `کد تایید به ایمیل ${username.value} ارسال شد`
   else return ''
 }
+
 const authStore = useAuthenticateStore()
 
 async function submit() {

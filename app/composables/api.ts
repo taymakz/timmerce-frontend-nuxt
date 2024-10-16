@@ -12,6 +12,7 @@ export default async function FetchApi<T>(
     ...config,
   }
   const authStore = useAuthenticateStore()
+
   function setTokenOnHeader() {
     if (authStore.getUserTokens) {
       config.headers = {
@@ -19,6 +20,7 @@ export default async function FetchApi<T>(
       }
     }
   }
+
   setTokenOnHeader()
 
   try {
@@ -98,6 +100,7 @@ export default async function FetchApi<T>(
     }
   }
 }
+
 export async function RefreshUserToken(refresh: string): Promise<Response> {
   return fetch(
     `${useRuntimeConfig().public.baseApi}/api/admin/user/token/refresh/`,

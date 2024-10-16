@@ -14,6 +14,7 @@ function jumpVal(val: number) {
 }
 
 let timeout: any
+
 function jumpPoints() {
   for (let i = 0; i < points.value.length; i++) {
     points.value[i] = [

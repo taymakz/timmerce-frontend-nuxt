@@ -12,10 +12,12 @@ const canLoginWithPassword = ref<boolean>(false)
 const authenticateSection = ref<AuthenticateSectionEnum>(
   AuthenticateSectionEnum.CHECK,
 )
+
 interface sectionsType {
   name: string
   component: any
 }
+
 const sections = shallowRef<sectionsType[]>([
   {
     name: AuthenticateSectionEnum.CHECK,

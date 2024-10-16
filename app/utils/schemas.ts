@@ -19,12 +19,14 @@ Yup.setLocale({
     min: ' حداقل مقدار ${path} ${min} است',
   },
 })
+
 function trimWhitespaceTransformer(value: any, originalValue: any) {
   if (typeof originalValue === 'string')
     return originalValue.trim() // Trim whitespace from string values
 
   return originalValue // Return original value for non-string values
 }
+
 // Schemas
 export const schemaUsername = Yup.object().shape({
   username: Yup.string()

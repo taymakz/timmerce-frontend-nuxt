@@ -49,6 +49,7 @@ const regexPatterns: Record<RegexType, RegExp> = {
 }
 const modelValue = defineModel<string | number>({ required: false })
 const randomId = useId()
+
 // Event handler to validate input based on mode
 function handleInput(event: Event) {
   const input = event.target as HTMLInputElement
@@ -62,6 +63,7 @@ function handleInput(event: Event) {
     }
   }
 }
+
 const { errorMessage } = useField(props.name || randomId!, undefined)
 const passwordRevealed = ref(false)
 </script>

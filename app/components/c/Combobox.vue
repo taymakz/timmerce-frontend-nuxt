@@ -51,7 +51,7 @@ const value = ref('')
     <PopoverContent class="w-[200px] p-0">
       <Command>
         <CommandInput class="h-9" placeholder="... جستجو کنید" />
-        <CommandEmpty> چیزی یافت نشد </CommandEmpty>
+        <CommandEmpty> چیزی یافت نشد</CommandEmpty>
         <CommandList>
           <CommandGroup>
             <CommandItem

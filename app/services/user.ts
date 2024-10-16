@@ -9,6 +9,7 @@ import type { UserDetailType } from '~/types/account/user'
 import type { ApiResponseType } from '~/types/request'
 
 const basePrefix = '/user/'
+
 export async function UserAuthenticateCheck(
   username: string,
 ): Promise<ApiResponseType<AuthenticateCheckResultType>> {
@@ -19,6 +20,7 @@ export async function UserAuthenticateCheck(
     },
   })
 }
+
 export async function UserAuthenticatePassword(
   username: string,
   password: string,
@@ -31,6 +33,7 @@ export async function UserAuthenticatePassword(
     },
   })
 }
+
 export async function UserAuthenticateOneTimePassword(
   username: string,
   otp: string,
@@ -43,11 +46,13 @@ export async function UserAuthenticateOneTimePassword(
     },
   })
 }
+
 export function UserGetCurrentDetail(): Promise<
   ApiResponseType<UserDetailType>
 > {
   return FetchApi(`${basePrefix}request/current/`)
 }
+
 export function UserLogout(refresh: string): Promise<ApiResponseType<null>> {
   return FetchApi(`${basePrefix}logout/`, {
     method: 'POST',
@@ -68,6 +73,7 @@ export function UserForgotPasswordCheck(
     },
   })
 }
+
 export function UserForgotPasswordOneTimePassword(
   username: string,
   otp: string,
@@ -80,6 +86,7 @@ export function UserForgotPasswordOneTimePassword(
     },
   })
 }
+
 export function UserForgotPasswordReset(
   username: string,
   token: string,

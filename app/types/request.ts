@@ -5,6 +5,7 @@ export interface ApiResponseType<T> {
   data: T
   redirect_url?: string
 }
+
 export interface ApiFilterResultType<T> {
   entity_count: number
   current_page: number

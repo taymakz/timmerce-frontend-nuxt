@@ -16,6 +16,7 @@ const authenticateSection = defineModel<AuthenticateSectionEnum>(
 )
 
 const loading = ref<boolean>(false)
+
 async function submit(_: any, formEvent: any) {
   if (loading.value || !validateUsername(username.value))
     return

@@ -4,20 +4,29 @@ import { Field, Form } from 'vee-validate'
 import { toast } from 'vue-sonner'
 import Input from '~/components/ui/input/Input.vue'
 import { UserForgotPasswordReset } from '~/services/user'
-import { type AuthenticateTokensType, ForgotPasswordSectionEnum } from '~/types/account/authenticate'
+import {
+  type AuthenticateTokensType,
+  ForgotPasswordSectionEnum,
+} from '~/types/account/authenticate'
 
-const username: Ref<string> = defineModel<string>('username', { required: true })
-const forgotSection = defineModel<ForgotPasswordSectionEnum>('forgot-section', { required: true })
+const username: Ref<string> = defineModel<string>('username', {
+  required: true,
+})
+const forgotSection = defineModel<ForgotPasswordSectionEnum>('forgot-section', {
+  required: true,
+})
 
-const password = ref <string>('')
-const confirm_password = ref <string> ('')
-const resetToken = ref <string> ('')
+const password = ref<string>('')
+const confirm_password = ref<string>('')
+const resetToken = ref<string>('')
 
 const loading = ref<boolean>(false)
+
 function getBack() {
   username.value = ''
   forgotSection.value = ForgotPasswordSectionEnum.CHECK
 }
+
 onMounted(() => {
   if (localStorage.forgotPasswordToken) {
     resetToken.value = localStorage.forgotPasswordToken
@@ -36,6 +45,7 @@ const {
 } = useResetPasswordValidation(password)
 
 const authStore = useAuthenticateStore()
+
 async function submit(_: any, formEvent: any) {
   loading.value = true
   try {
@@ -44,7 +54,12 @@ async function submit(_: any, formEvent: any) {
       return
     }
 
-    const result = await UserForgotPasswordReset(username.value, resetToken.value, password.value, confirm_password.value)
+    const result = await UserForgotPasswordReset(
+      username.value,
+      resetToken.value,
+      password.value,
+      confirm_password.value,
+    )
     if (result.success) {
       localStorage.removeItem('forgotPasswordToken')
       toast(result.message)
@@ -56,10 +71,7 @@ async function submit(_: any, formEvent: any) {
     }
     else {
       if (result.data.error_input_name && result.message) {
-        formEvent.setFieldError(
-          result.data.error_input_name,
-          result.message,
-        )
+        formEvent.setFieldError(result.data.error_input_name, result.message)
       }
       loading.value = false
     }
@@ -105,33 +117,39 @@ async function submit(_: any, formEvent: any) {
           />
         </Field>
         <div class="mb-8">
-          <div class="flex items-center gap-x-2 mb-4">
-            <div class="w-full h-[3px] rounded-full " :class="getValidationClass[0]" />
-            <div class="w-full h-[3px] rounded-full  " :class="getValidationClass[1]" />
-            <div class="w-full h-[3px] rounded-full   " :class="getValidationClass[2]" />
-            <div class="w-full h-[3px] rounded-full   " :class="getValidationClass[3]" />
+          <div class="mb-4 flex items-center gap-x-2">
+            <div
+              class="h-[3px] w-full rounded-full"
+              :class="getValidationClass[0]"
+            />
+            <div
+              class="h-[3px] w-full rounded-full"
+              :class="getValidationClass[1]"
+            />
+            <div
+              class="h-[3px] w-full rounded-full"
+              :class="getValidationClass[2]"
+            />
+            <div
+              class="h-[3px] w-full rounded-full"
+              :class="getValidationClass[3]"
+            />
           </div>
           <div>
-            <ul class="text-xs md:text-sm text-muted-foreground select-none list-disc px-4 space-y-2">
+            <ul
+              class="select-none list-disc space-y-2 px-4 text-xs text-muted-foreground md:text-sm"
+            >
               <li v-show="!lengthValid">
-                <p>
-                  حداقل 6 و حداکثر 18 حرف
-                </p>
+                <p>حداقل 6 و حداکثر 18 حرف</p>
               </li>
               <li v-show="!lowercaseValid">
-                <p>
-                  شامل یک حرف کوچک
-                </p>
+                <p>شامل یک حرف کوچک</p>
               </li>
               <li v-show="!uppercaseValid">
-                <p>
-                  شامل یک حرف بزرگ
-                </p>
+                <p>شامل یک حرف بزرگ</p>
               </li>
               <li v-show="!numberValid">
-                <p>
-                  شامل عدد
-                </p>
+                <p>شامل عدد</p>
               </li>
             </ul>
           </div>
@@ -165,6 +183,4 @@ async function submit(_: any, formEvent: any) {
   </div>
 </template>
 
-<style>
-
-</style>
+<style></style>

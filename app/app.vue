@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Toaster } from '@/components/ui/sonner'
-import { appDesktopStartMinWidth, appTitle } from './constants'
+import { appDesktopStartMinWidth } from './constants'
 
 const color = useColorMode()
 const isDesktop = useMediaQuery(appDesktopStartMinWidth)
@@ -45,6 +45,7 @@ useAuthenticateStore().SetUserDetail()
 .layout-leave-active {
   transition: all 0.2s;
 }
+
 .page-enter-from,
 .page-leave-to,
 .layout-enter-from,

@@ -7,10 +7,12 @@ export enum AuthenticateSectionEnum {
 export interface AuthenticateCheckResultType {
   section: AuthenticateSectionEnum
 }
+
 export interface AuthenticateTokensType {
   access: string
   refresh: string
 }
+
 // ForgotPassword
 export interface ForgotPasswordTokenType {
   token: string

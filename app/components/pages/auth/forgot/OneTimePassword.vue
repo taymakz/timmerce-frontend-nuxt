@@ -6,8 +6,12 @@ import { UserForgotPasswordOneTimePassword } from '~/services/user'
 import { ForgotPasswordSectionEnum } from '~/types/account/authenticate'
 import { RequestVerificationOtpUsageEnum } from '~/types/messages'
 
-const username: Ref<string> = defineModel<string>('username', { required: true })
-const forgotSection = defineModel<ForgotPasswordSectionEnum>('forgot-section', { required: true })
+const username: Ref<string> = defineModel<string>('username', {
+  required: true,
+})
+const forgotSection = defineModel<ForgotPasswordSectionEnum>('forgot-section', {
+  required: true,
+})
 
 const pinCount = 4
 const otp = ref<string>('')
@@ -26,6 +30,7 @@ const { isPending, startTimer, getFormattedCounter, resetTimer } = useTimer({
   minute: 4,
 })
 onMounted(() => startTimer())
+
 async function requestNewOTP() {
   if (newOtpLoading.value || !validateUsername(username.value))
     return
@@ -44,6 +49,7 @@ async function requestNewOTP() {
     forgotSection.value = ForgotPasswordSectionEnum.CHECK
   }
 }
+
 function getMessage(): string {
   if (validatePhoneNumber(username.value))
     return `کد تایید به شماره ${username.value} پیامک شد`
@@ -60,7 +66,10 @@ async function submit() {
       otp.value,
     )
     if (result.success) {
-      localStorage.setItem('forgotPasswordToken', JSON.stringify(result.data.token))
+      localStorage.setItem(
+        'forgotPasswordToken',
+        JSON.stringify(result.data.token),
+      )
       forgotSection.value = ForgotPasswordSectionEnum.RESET
     }
     else {

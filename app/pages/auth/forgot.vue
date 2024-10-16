@@ -13,11 +13,11 @@ const forgotSection = ref<ForgotPasswordSectionEnum>(
   ForgotPasswordSectionEnum.CHECK,
 )
 
-
 interface sectionsType {
   name: string
   component: any
 }
+
 const sections = shallowRef<sectionsType[]>([
   {
     name: ForgotPasswordSectionEnum.CHECK,

@@ -21,6 +21,7 @@ const authenticateSection = defineModel<AuthenticateSectionEnum>(
 )
 const password = ref<string>('')
 const loading = ref<boolean>(false)
+
 async function redirectToOTP() {
   if (loading.value)
     return
@@ -39,17 +40,21 @@ async function redirectToOTP() {
   if (result.message)
     toast(result.message)
 }
+
 function redirectToForgot() {
   localStorage.setItem('username', username.value)
   navigateTo({
     path: '/auth/forgot/',
   })
 }
+
 function getBack() {
   username.value = ''
   authenticateSection.value = AuthenticateSectionEnum.CHECK
 }
+
 const authStore = useAuthenticateStore()
+
 async function submit(_: any, formEvent: any) {
   if (loading.value)
     return

@@ -6,13 +6,21 @@ import Input from '~/components/ui/input/Input.vue'
 import { UserForgotPasswordCheck } from '~/services/user'
 import { ForgotPasswordSectionEnum } from '~/types/account/authenticate'
 
-const username: Ref<string> = defineModel<string>('username', { required: true })
-const forgotSection = defineModel<ForgotPasswordSectionEnum>('forgot-section', { required: true })
+const username: Ref<string> = defineModel<string>('username', {
+  required: true,
+})
+const forgotSection = defineModel<ForgotPasswordSectionEnum>('forgot-section', {
+  required: true,
+})
 
-const { meta, setValues, validate, handleSubmit, setFieldError, defineField } = useForm<{
-  username: string
-}>({ validationSchema: schemaUsername })
-const [usernameInput, usernameInputProps] = defineField('username', { validateOnBlur: true, validateOnInput: true })
+const { meta, setValues, validate, handleSubmit, setFieldError, defineField }
+  = useForm<{
+    username: string
+  }>({ validationSchema: schemaUsername })
+const [usernameInput, usernameInputProps] = defineField('username', {
+  validateOnBlur: true,
+  validateOnInput: true,
+})
 onMounted(() => {
   if (localStorage.username) {
     setValues({ username: localStorage.username })
@@ -48,9 +56,7 @@ const submit = handleSubmit(async (values) => {
     <div class="mb-6 text-center font-medium">
       فراموشی کلمه عبور
     </div>
-    <form
-      @submit="submit"
-    >
+    <form @submit="submit">
       <div class="mb-6">
         <Input
           v-model="usernameInput"
@@ -71,7 +77,6 @@ const submit = handleSubmit(async (values) => {
         <li>
           <NuxtLink
             to="/auth/login"
-
             class="flex items-center gap-x-1 text-sm text-primary duration-200 hover:text-primary/80"
           >
             ورود به حساب کاربری
@@ -93,6 +98,4 @@ const submit = handleSubmit(async (values) => {
   </div>
 </template>
 
-<style>
-
-</style>
+<style></style>
