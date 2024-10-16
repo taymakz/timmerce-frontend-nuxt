@@ -10,7 +10,7 @@ useHead({
 
 const username = ref<string>('')
 const forgotSection = ref<ForgotPasswordSectionEnum>(
-  ForgotPasswordSectionEnum.CHECK,
+  ForgotPasswordSectionEnum.RESET,
 )
 
 
