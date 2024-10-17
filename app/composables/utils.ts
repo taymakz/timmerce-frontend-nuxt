@@ -165,42 +165,17 @@ export function useResetPasswordValidation(password: Ref<string>) {
 
     switch (validCount) {
       case 0:
-        return [
-          'bg-zinc-200 dark:bg-zinc-600',
-          'bg-zinc-200 dark:bg-zinc-600',
-          'bg-zinc-200 dark:bg-zinc-600',
-          'bg-zinc-200 dark:bg-zinc-600',
-        ]
+        return 'bg-muted w-0'
       case 1:
-        return [
-          'bg-red-500',
-          'bg-zinc-200 dark:bg-zinc-600',
-          'bg-zinc-200 dark:bg-zinc-600',
-          'bg-zinc-200 dark:bg-zinc-600',
-        ]
+        return 'bg-warning w-1/4'
       case 2:
-        return [
-          'bg-yellow-500',
-          'bg-yellow-500',
-          'bg-zinc-200 dark:bg-zinc-600',
-          'bg-zinc-200 dark:bg-zinc-600',
-        ]
+        return 'bg-yellow-500 dark:bg-yellow-400 w-2/4'
       case 3:
-        return [
-          'bg-sky-500',
-          'bg-sky-500',
-          'bg-sky-500',
-          'bg-zinc-200 dark:bg-zinc-600',
-        ]
+        return 'bg-blue-500 dark:bg-blue-400 w-3/4'
       case 4:
-        return [
-          'bg-green-500 dark:bg-green-400',
-          'bg-green-500 dark:bg-green-400',
-          'bg-green-500 dark:bg-green-400',
-          'bg-green-500 dark:bg-green-400',
-        ]
+        return 'bg-success w-full'
       default:
-        return []
+        return ''
     }
   })
 

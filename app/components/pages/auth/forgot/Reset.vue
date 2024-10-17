@@ -33,7 +33,7 @@ onMounted(() => {
     localStorage.removeItem('forgotPasswordToken')
   }
   else {
-    forgotSection.value = ForgotPasswordSectionEnum.CHECK
+    // forgotSection.value = ForgotPasswordSectionEnum.CHECK
   }
 })
 const {
@@ -119,21 +119,13 @@ async function submit(_: any, formEvent: any) {
         <div class="mb-8">
           <div class="mb-4 flex items-center gap-x-2">
             <div
-              class="h-[3px] w-full rounded-full"
-              :class="getValidationClass[0]"
-            />
-            <div
-              class="h-[3px] w-full rounded-full"
-              :class="getValidationClass[1]"
-            />
-            <div
-              class="h-[3px] w-full rounded-full"
-              :class="getValidationClass[2]"
-            />
-            <div
-              class="h-[3px] w-full rounded-full"
-              :class="getValidationClass[3]"
-            />
+              class="relative h-[3px] w-full rounded-full bg-muted overflow-hidden"
+            >
+              <span
+                class="absolute right-0 h-full rounded-full duration-300"
+                :class="getValidationClass"
+              />
+            </div>
           </div>
           <div>
             <ul
