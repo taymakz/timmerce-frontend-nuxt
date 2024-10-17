@@ -33,7 +33,7 @@ onMounted(() => {
     localStorage.removeItem('forgotPasswordToken')
   }
   else {
-    // forgotSection.value = ForgotPasswordSectionEnum.CHECK
+    forgotSection.value = ForgotPasswordSectionEnum.CHECK
   }
 })
 const {
