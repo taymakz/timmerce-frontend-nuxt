@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@/utils/cn'
+
 import { useField } from 'vee-validate'
 import { type InputVariants, inputVariants } from '.'
 
@@ -17,6 +18,7 @@ const props = withDefaults(
     label?: string
     name?: string
     dir?: string
+    iconPlacement?: 'right' | 'left'
     disabled?: boolean
     readonly?: boolean
     autofocus?: boolean
@@ -40,8 +42,17 @@ const emits = defineEmits([
   'keydown',
   'keyup',
   'click',
+  'submit',
 ])
+const inputRef = ref<HTMLInputElement | null>(null)
 
+function blur() {
+  inputRef.value?.blur()
+}
+
+defineExpose({
+  blur
+})
 const regexPatterns: Record<RegexType, RegExp> = {
   ONLY_DIGIT: /^\d*$/,
   ONLY_ALPHABET: /^[a-z]*$/i,
@@ -64,7 +75,7 @@ function handleInput(event: Event) {
   }
 }
 
-const { errorMessage } = useField(props.name || randomId!, undefined)
+const { errorMessage } = useField(randomId, undefined)
 const passwordRevealed = ref(false)
 </script>
 
@@ -92,8 +103,13 @@ const passwordRevealed = ref(false)
       <!-- Icon -->
       <div
         v-if="withIcon"
-        :dir
-        class="pointer-events-none absolute inset-y-0 start-4 z-10 flex items-center justify-center"
+        :dir="props.dir"
+        class="pointer-events-none absolute inset-y-0  z-10 flex items-center justify-center"
+        :class="[
+          { 'start-4': !iconPlacement },
+          { 'right-4': iconPlacement === 'right' },
+          { 'left-4': iconPlacement === 'left' },
+        ]"
       >
         <span
           class="flex cursor-pointer items-center justify-center text-muted-foreground"
@@ -102,17 +118,14 @@ const passwordRevealed = ref(false)
         </span>
       </div>
       <template v-if="variant === 'default'">
-        <UiLabel :for="name || randomId" class="sr-only">
+        <UiLabel :for="randomId" class="sr-only">
           {{ label }}
         </UiLabel>
         <input
-          :id="name || randomId"
+          :id="randomId"
+          ref="inputRef"
           v-model="modelValue"
-          :dir
-          :name
-          :autofocus
-          :disabled
-          :readonly
+
           :placeholder="label"
           :type="passwordRevealed ? 'text' : props.type"
           :class="
@@ -120,10 +133,11 @@ const passwordRevealed = ref(false)
               inputVariants({ variant }),
               props.class,
               { 'pe-12': props.type === 'password' },
-              { 'ps-12': withIcon },
+              { 'ps-12': withIcon && !iconPlacement },
+              { 'pr-12': withIcon && iconPlacement === 'right' },
+              { 'pl-12': withIcon && iconPlacement === 'left' },
             )
           "
-          :autocomplete="autoComplete ? 'on' : 'off'"
           @input="handleInput"
           @focus="emits('focus', $event)"
           @blur="emits('blur', $event)"
@@ -133,30 +147,29 @@ const passwordRevealed = ref(false)
           @keydown="emits('keydown', $event)"
           @keyup="emits('keyup', $event)"
           @click="emits('click', $event)"
+          @submit="emits('submit', $event)"
         >
       </template>
       <template v-else-if="variant === 'floating-label'">
         <label
-          :dir
-          :for="name || randomId"
+          :dir="props.dir"
+          :for="randomId"
           :class="cn(inputVariants({ variant }), props.class)"
         >
           <input
-            :id="name || randomId"
+            :id="randomId"
+            ref="inputRef"
             v-model="modelValue"
-            :props
-            :autocomplete="autoComplete ? 'on' : 'off'"
-            :name
-            :autofocus
-            :disabled
-            :readonly
             :type="passwordRevealed ? 'text' : props.type"
             class="peer"
             :class="[
               { '!pe-12': props.type === 'password' },
-              { '!ps-12': withIcon },
+              { '!ps-12': withIcon && !iconPlacement },
+              { '!pr-12': withIcon && iconPlacement === 'right' },
+              { '!pl-12': withIcon && iconPlacement === 'left' },
             ]"
             placeholder=""
+
             @input="handleInput"
             @focus="emits('focus', $event)"
             @blur="emits('blur', $event)"
@@ -166,6 +179,7 @@ const passwordRevealed = ref(false)
             @keydown="emits('keydown', $event)"
             @keyup="emits('keyup', $event)"
             @click="emits('click', $event)"
+            @submit="emits('submit', $event)"
           >
           <span
             :class="

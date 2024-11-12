@@ -133,8 +133,7 @@ import Spotlight from './Spotlight.vue'
           </pattern>
         </defs>
       </svg>
-      <!-- Light -->
-      <Spotlight />
+  
     </div>
   </div>
 </template>

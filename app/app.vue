@@ -9,7 +9,7 @@ useAuthenticateStore().SetUserDetail()
 </script>
 
 <template>
-  <div vaul-drawer-wrapper>
+  <div>
     <NuxtLayout>
       <NuxtLoadingIndicator :size="3" />
       <div>
@@ -51,6 +51,11 @@ useAuthenticateStore().SetUserDetail()
 .layout-enter-from,
 .layout-leave-to {
   opacity: 0;
+}
+
+.page-enter-from,
+.page-leave-to{
   scale: 0.98;
+
 }
 </style>

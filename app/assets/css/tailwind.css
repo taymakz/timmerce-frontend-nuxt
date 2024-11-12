@@ -17,8 +17,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
   
-    --primary: 142.1 76.2% 36.3%;
-    --primary-foreground: 355.7 100% 97.3%;
+    --primary: 142 67% 37%;
+    --primary-foreground: 0 0% 100%;
   
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -29,6 +29,7 @@
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
 
+    --alert: 38 92% 50%;
     --success: 142 71% 45%;
     --warning: 0 72% 51%;
     --destructive: 0 84.2% 60.2%;
@@ -53,8 +54,8 @@
     --popover:0 0% 9%;
     --popover-foreground:0 0% 95%;
   
-    --primary:142.1 70.6% 45.3%;
-    --primary-foreground:144.9 80.4% 10%;
+    --primary: 142 67% 37%;
+    --primary-foreground: 0 0% 100%;
   
     --secondary:240 3.7% 15.9%;
     --secondary-foreground:0 0% 98%;
@@ -64,7 +65,8 @@
   
     --accent:12 6.5% 15.1%;
     --accent-foreground:0 0% 98%;
-
+    
+    --alert: 43 96% 56%;
     --success: 142 69% 58%;
     --warning: 0 84% 60%;
     --destructive:0 62.8% 30.6%;
@@ -123,12 +125,12 @@
   }
 
   ::-webkit-scrollbar-track {
-    background-color: hsl(var(--muted)) !important;
+    background-color: hsl(var(--sc-background)) !important;
   }
 
   ::-webkit-scrollbar-thumb {
     border-radius: calc(var(--radius) - 4px);
-    background-color: hsl(var(--secondary) / 0.3) !important;
+    background-color: hsl(var(--sc-foreground) / 0.2) !important;
   }
 
   html {
@@ -175,5 +177,8 @@
 
   .underline-c {
     @apply relative after:absolute after:left-0 after:top-7 after:h-px after:w-full after:rounded-full after:bg-foreground after:opacity-0 after:duration-200 after:content-[''] hover:after:opacity-100;
+  }
+  .scroll-lock{
+    @apply overflow-y-scroll fixed w-full top-[var(--window-scroll-top)]
   }
 }

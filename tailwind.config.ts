@@ -48,6 +48,7 @@ export default {
         'sc-foreground': 'hsl(var(--sc-foreground))',
         warning: 'hsl(var(--warning))',
         success: 'hsl(var(--success))',
+        alert: 'hsl(var(--alert))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',

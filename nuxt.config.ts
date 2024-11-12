@@ -1,8 +1,8 @@
 import { appDescription, appTitle } from './app/constants'
 
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-
+  devtools: { enabled: false },
+  // builder: 'rspack',
   future: {
     compatibilityVersion: 4,
   },
@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     '@vee-validate/nuxt',
     '@vueuse/motion/nuxt',
     '@oku-ui/motion-nuxt',
+    '@formkit/auto-animate',
   ],
   routeRules: {
     '/auth/**': { ssr: false, appMiddleware: 'should-be-logged-out' },

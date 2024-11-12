@@ -1,11 +1,12 @@
 <script setup lang="ts">
 const mode = useColorMode()
+
 const isDark = computed<boolean>({
   get() {
     return mode.value === 'dark'
   },
   set() {
-    mode.value = isDark.value ? 'light' : 'dark'
+    mode.preference = isDark.value ? 'light' : 'dark'
   },
 })
 
@@ -55,7 +56,7 @@ function toggle(event?: MouseEvent) {
 
 <template>
   <button
-    class="flex size-10 items-center justify-center rounded-lg border text-muted-foreground duration-300 hover:bg-background"
+    class="flex size-10 items-center justify-center rounded-lg border text-sc-foreground duration-300  hover:bg-background "
     @click="toggle"
   >
     <Icon name="i-lucide-sun" class="hidden size-5 dark:block" />
