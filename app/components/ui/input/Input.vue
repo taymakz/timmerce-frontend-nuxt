@@ -51,7 +51,7 @@ function blur() {
 }
 
 defineExpose({
-  blur
+  blur,
 })
 const regexPatterns: Record<RegexType, RegExp> = {
   ONLY_DIGIT: /^\d*$/,
@@ -103,7 +103,7 @@ const passwordRevealed = ref(false)
       <!-- Icon -->
       <div
         v-if="withIcon"
-        :dir="props.dir"
+        :dir
         class="pointer-events-none absolute inset-y-0  z-10 flex items-center justify-center"
         :class="[
           { 'start-4': !iconPlacement },
@@ -125,7 +125,8 @@ const passwordRevealed = ref(false)
           :id="randomId"
           ref="inputRef"
           v-model="modelValue"
-
+          :name
+          :dir
           :placeholder="label"
           :type="passwordRevealed ? 'text' : props.type"
           :class="
@@ -159,7 +160,10 @@ const passwordRevealed = ref(false)
           <input
             :id="randomId"
             ref="inputRef"
+          :dir
+
             v-model="modelValue"
+            :name
             :type="passwordRevealed ? 'text' : props.type"
             class="peer"
             :class="[

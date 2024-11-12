@@ -1,8 +1,8 @@
 export default defineNuxtRouteMiddleware(async () => {
   if (import.meta.server)
     return
-  const authStore = useAuthenticateStore()
-  await authStore.SetUserDetail()
-  if (authStore.isLogin)
+  const tokens = getAuthenticateTokens()
+  // if no tokens in localStorage
+  if (tokens)
     return navigateTo('/')
 })

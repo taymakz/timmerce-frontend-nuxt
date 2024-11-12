@@ -1,4 +1,5 @@
 import { toast } from 'vue-sonner'
+import type { AuthenticateTokensType } from '~/types/account/authenticate'
 import type { ApiResponseType } from '~/types/request'
 
 export default async function FetchApi<T>(
@@ -14,7 +15,7 @@ export default async function FetchApi<T>(
   const authStore = useAuthenticateStore()
 
   function setTokenOnHeader() {
-    if (authStore.getUserTokens) {
+    if (authStore.getUserTokens?.access) {
       config.headers = {
         Authorization: `Bearer ${authStore.getUserTokens.access}`,
       }
@@ -101,15 +102,26 @@ export default async function FetchApi<T>(
   }
 }
 
-export async function RefreshUserToken(refresh: string): Promise<Response> {
-  return fetch(
-    `${useRuntimeConfig().public.baseApi}/api/admin/user/token/refresh/`,
+export async function RefreshUserToken(refresh: string): Promise<{ tokens: AuthenticateTokensType | null, status: number }> {
+  const response = await fetch(
+    `${useRuntimeConfig().public.baseApi}/api/user/token/refresh/`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        refresh,
-      }),
+      body: JSON.stringify({ refresh }),
     },
   )
+
+  if (!response.ok) {
+    throw new Error('Failed to refresh token')
+  }
+  const result = await response.json() as ApiResponseType<AuthenticateTokensType>
+  return {
+    tokens: {
+      refresh,
+      access: result.data.access,
+      access_exp: result.data.access_exp,
+    },
+    status: response.status,
+  }
 }

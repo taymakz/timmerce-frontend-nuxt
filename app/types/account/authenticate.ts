@@ -9,8 +9,9 @@ export interface AuthenticateCheckResultType {
 }
 
 export interface AuthenticateTokensType {
-  access: string
   refresh: string
+  access: string
+  access_exp: number
 }
 
 // ForgotPassword

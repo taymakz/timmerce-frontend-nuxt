@@ -32,32 +32,49 @@ export const useAuthenticateStore = defineStore('authenticate', () => {
       loading.value = value
     else loading.value = !loading.value
   }
-  const SetUserDetailName = (first_name: string, last_name: string) => {
-    if (userDetail.value) {
-      userDetail.value.first_name = first_name
-      userDetail.value.last_name = last_name
-    }
-  }
-  const SetUserDetailPhone = (value: string) => {
-    if (userDetail.value) {
-      userDetail.value.phone = value
-    }
-  }
 
-  const SetUserDetailEmail = (value: string) => {
-    if (userDetail.value) {
-      userDetail.value.email = value
-    }
+  const UpdateUserDetail = (data: Partial<UserDetailType>) => {
+    userDetail.value = { ...data } as UserDetailType
   }
 
   const SetUserTokens = (tokens: AuthenticateTokensType) => {
     if (tokens) {
       userTokens.value = tokens
-      localStorage.removeItem('authTokens')
-      localStorage.setItem('authTokens', JSON.stringify(tokens))
+      clearLocalStorageTokens()
+      updateLocalStorageTokens(tokens)
     }
   }
+  function updateLocalStorageTokens(tokens: AuthenticateTokensType) {
+    localStorage.setItem('authTokens', JSON.stringify(tokens))
+  }
+  function clearLocalStorageTokens() {
+    localStorage.removeItem('authTokens')
+  }
+  const RefreshToken = useMemoize(async () => {
+    const tokens = getAuthenticateTokens()
+    if (!tokens || !tokens.refresh) {
+      clearUserDetail()
+      return { tokens: null, status: 401 }
+    }
 
+    try {
+      const { tokens: refreshedTokens, status } = await RefreshUserToken(tokens.refresh)
+      if (refreshedTokens) {
+        userTokens.value = refreshedTokens
+        updateLocalStorageTokens(refreshedTokens)
+        return { tokens: refreshedTokens, status }
+      }
+      else {
+        clearUserDetail()
+        return { tokens: null, status }
+      }
+    }
+    catch (error) {
+      console.error('Error during token refresh:', error)
+      clearUserDetail() // Clear session on failure
+      return { tokens: null, status: 401 } // Return unauthorized status
+    }
+  }, { cache: createSimpleMemoizeExpiringCache(4000) })
   // Actions - Authentication
   const SetUserDetail = useMemoize(
     async () => {
@@ -66,33 +83,25 @@ export const useAuthenticateStore = defineStore('authenticate', () => {
         loading.value = false
         return
       }
-      const tokens = localStorage.getItem('authTokens')
+      const tokens = getAuthenticateTokens()
       if (!tokens) {
         loading.value = false
-        return
+        return null
+      }
+      userTokens.value = tokens
+
+      // If the access token is expired, refresh it
+      if (isAuthenticateAccessTokenExpired()) {
+        try {
+          await RefreshToken() // Refresh token
+        }
+        catch (error) {
+          console.error('Error refreshing token:', error)
+          loading.value = false
+          return // Exit if token refresh fails
+        }
       }
 
-      const parsed_tokens = JSON.parse(tokens) as AuthenticateTokensType
-      if (!parsed_tokens.access || !parsed_tokens.refresh) {
-        loading.value = false
-        return
-      }
-      userTokens.value = parsed_tokens
-
-      const decoded_token = jwtDecode(userTokens.value.access) as {
-        exp: number
-        iat: number
-        jti: string
-        token_type: string
-        user_id: number
-      }
-      const currentTimestamp: number = Math.floor(Date.now() / 1000)
-
-      if (decoded_token.exp && decoded_token.exp < currentTimestamp) {
-        await useAuthenticateStore().RefreshToken()
-      }
-
-      loading.value = true
       try {
         const result = await UserGetCurrentDetail()
         if (result.success) {
@@ -100,8 +109,7 @@ export const useAuthenticateStore = defineStore('authenticate', () => {
         }
         else {
           if (result.status) {
-            userTokens.value = null
-            localStorage.removeItem('authTokens')
+            clearUserDetail()
           }
         }
       }
@@ -110,63 +118,17 @@ export const useAuthenticateStore = defineStore('authenticate', () => {
         // Handle error appropriately
       }
       finally {
-        loading.value = false
+        loading.value = false // Reset loading state
       }
     },
     { cache: createSimpleMemoizeExpiringCache(2000) },
   )
+  function clearUserDetail() {
+    userTokens.value = null
+    userDetail.value = null
+    clearLocalStorageTokens()
+  }
 
-  const RefreshToken = useMemoize(
-    async () => {
-      const tokens = userTokens.value
-      if (!tokens || !tokens.refresh) {
-        userTokens.value = null
-        userDetail.value = null
-        localStorage.removeItem('authTokens')
-        return
-      }
-      let response
-      do {
-        try {
-          response = await RefreshUserToken(tokens.refresh)
-          const data = await response.json()
-
-          if (response.status === 200) {
-            userTokens.value = {
-              refresh: tokens.refresh,
-              access: data.access,
-            }
-            localStorage.removeItem('authTokens')
-            localStorage.setItem(
-              'authTokens',
-              JSON.stringify(userTokens.value),
-            )
-          }
-          else if (response.status === 401) {
-            // Unauthorized error
-            userTokens.value = null
-            userDetail.value = null
-            localStorage.removeItem('authTokens')
-          }
-          else {
-            // Handle other status codes or unexpected errors
-            console.error('Token refresh failed with status:', response.status)
-            break // Exit the loop in case of unexpected errors
-          }
-        }
-        catch (error) {
-          console.error('Error during token refresh:', error)
-          // Add a delay before retrying (e.g., using setTimeout)
-          await new Promise(resolve => setTimeout(resolve, 1000)) // 1 second delay
-        }
-      } while (
-        response!.status !== 200
-        && response!.statusText !== 'Unauthorized'
-        && response!.status !== 401
-      )
-    },
-    { cache: createSimpleMemoizeExpiringCache(4000) },
-  )
   const RedirectToLogin = () => {
     const route = useRoute()
     return navigateTo(`/auth/login?backUrl=${route.fullPath}`)
@@ -184,7 +146,7 @@ export const useAuthenticateStore = defineStore('authenticate', () => {
       // Clear the login data and user data from the store and local storage
       userTokens.value = null
       userDetail.value = null
-      localStorage.removeItem('authTokens')
+      clearLocalStorageTokens()
 
       // Redirect to the login page with the current URL as the backUrl parameter
       await RedirectToLogin()
@@ -194,7 +156,7 @@ export const useAuthenticateStore = defineStore('authenticate', () => {
 
   const Login = async (result: AuthenticateTokensType) => {
     const route = useRoute()
-    localStorage.removeItem('authTokens')
+    clearLocalStorageTokens()
     localStorage.setItem('authTokens', JSON.stringify(result))
     SetUserTokens(result)
     await SetUserDetail()
@@ -210,9 +172,7 @@ export const useAuthenticateStore = defineStore('authenticate', () => {
     getLoading,
     getFullname,
     SetLoading,
-    SetUserDetailName,
-    SetUserDetailPhone,
-    SetUserDetailEmail,
+    UpdateUserDetail,
     SetUserTokens,
     SetUserDetail,
     Logout,

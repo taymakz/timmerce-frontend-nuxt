@@ -36,7 +36,7 @@ watchDebounced(search, async () => {
     searchResult.value = result.data
 
   searchLoading.value = false
-}, { debounce: 1000, maxWait: 4000 })
+}, { debounce: 1000, maxWait: 3000 })
 
 async function submit() {
   if (!search.value)
