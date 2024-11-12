@@ -42,7 +42,7 @@ async function submit() {
   if (!search.value)
     return
   changeFocusState(false)
-  
+
   if (searchInput.value) {
     (searchInput.value as any).blur()
   }
@@ -72,7 +72,7 @@ async function submit() {
                      { 'bg-sc-background border-primary': isFocused },
           )"
 
-          :auto-complete="false"
+          auto-complete="off"
           @focus="changeFocusState(true)"
         >
           <template #icon>
@@ -154,7 +154,7 @@ async function submit() {
                     </div>
                     <!-- searchs -->
                     <div v-auto-animate class="flex flex-wrap gap-2">
-                      <NuxtLink v-for="i in 6" :key="i" to="/" class="rounded-lg border py-1 px-3 text-sm">
+                      <NuxtLink v-for="i in 6" :key="i" to="/" class="rounded-lg border py-1 px-3 text-sm text-muted-foreground hover:border-foreground duration-200 hover:text-foreground">
                         نایک
                       </NuxtLink>
                     </div>
@@ -168,7 +168,7 @@ async function submit() {
 
                     <!-- searchs -->
                     <div class="flex flex-wrap gap-2">
-                      <NuxtLink v-for="i in 6" :key="i" to="/" type="button" class="rounded-lg border py-1 px-3 text-sm">
+                      <NuxtLink v-for="i in 6" :key="i" to="/" type="button" class="rounded-lg border py-1 px-3 text-sm text-muted-foreground hover:border-foreground duration-200 hover:text-foreground">
                         نایک
                       </NuxtLink>
                     </div>
