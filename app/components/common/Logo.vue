@@ -9,8 +9,5 @@ const { class: classes, width = 200, height = 32 } = defineProps<{
 </script>
 
 <template>
-  <NuxtImg src="/images/logo.svg" :width :height :class="cn(classes)" />
-  <!-- <div :class="cn('text-3xl text-primary', props.class)">
-    Timmerce
-  </div> -->
+  <NuxtImg src="/images/logo.svg" :width :height :class="cn(classes)" alt="لوگوی تیمرس | Timmerce Logo" />
 </template>

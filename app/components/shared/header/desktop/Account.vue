@@ -16,7 +16,7 @@ const authStore = useAuthenticateStore()
       <div
         class="flex size-10 items-center justify-center rounded-lg border text-muted-foreground"
       >
-        <Icon name="lucide-loader-2" class="animate-spin size-5" />
+        <Icon name="i-lucide-loader-2" class="animate-spin size-5" />
       </div>
     </template>
     <template v-else>
@@ -63,7 +63,7 @@ const authStore = useAuthenticateStore()
                 <NuxtLink to="/" class="block overflow-hidden py-2.5 px-2 hover:bg-secondary duration-300 text-muted-foreground hover:text-popover-foreground rounded-lg">
                   <div class=" flex items-center w-full justify-between gap-4">
                     <div class="flex items-center justify-between gap-2">
-                      <Icon name="lucide-layout-dashboard" :size="22"  />
+                      <Icon name="lucide-layout-dashboard" :size="22" />
 
                       <div>
                         پنل کاربری
@@ -77,7 +77,7 @@ const authStore = useAuthenticateStore()
                 <NuxtLink to="/" class="block overflow-hidden py-2.5 px-2 hover:bg-secondary duration-300 text-muted-foreground hover:text-popover-foreground rounded-lg">
                   <div class=" flex items-center w-full justify-between gap-4">
                     <div class="flex items-center justify-between gap-2">
-                      <Icon name="lucide-heart" :size="22"  />
+                      <Icon name="lucide-heart" :size="22" />
 
                       <div>
                         علاقه‌مندی ها
@@ -90,7 +90,7 @@ const authStore = useAuthenticateStore()
                 <NuxtLink to="/" class="block overflow-hidden py-2.5 px-2 hover:bg-secondary duration-300 text-muted-foreground hover:text-popover-foreground rounded-lg">
                   <div class=" flex items-center w-full justify-between gap-4">
                     <div class="flex items-center justify-between gap-2">
-                      <Icon name="lucide-shopping-bag" :size="22"  />
+                      <Icon name="lucide-shopping-bag" :size="22" />
 
                       <div>
                         سفارش ها
@@ -106,7 +106,7 @@ const authStore = useAuthenticateStore()
                 <NuxtLink to="/" class="block overflow-hidden py-2.5 px-2 hover:bg-secondary duration-300 text-muted-foreground hover:text-popover-foreground rounded-lg">
                   <div class=" flex items-center w-full justify-between gap-4">
                     <div class="flex items-center justify-between gap-2">
-                      <Icon name="lucide-mouse-pointer-click" :size="22"  />
+                      <Icon name="lucide-mouse-pointer-click" :size="22" />
 
                       <div>
                         بازدید های اخیر
@@ -119,7 +119,7 @@ const authStore = useAuthenticateStore()
                 <button class="block w-full overflow-hidden py-2.5 px-2 duration-300 text-alert hover:bg-alert/10 rounded-lg">
                   <div class=" flex items-center w-full justify-between gap-4">
                     <div class="flex items-center justify-between gap-2">
-                      <Icon name="lucide-lock-keyhole" :size="22"  />
+                      <Icon name="lucide-lock-keyhole" :size="22" />
 
                       <div>
                         ثبت کلمه عبور
