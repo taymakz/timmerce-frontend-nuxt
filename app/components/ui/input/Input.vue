@@ -24,12 +24,12 @@ const props = withDefaults(
     autofocus?: boolean
     withErrorMessage?: boolean
     withIcon?: boolean
-    autoComplete?: 'on'|'off'
+    autocomplete?: 'on'|'off'
   }>(),
   {
     type: 'text',
     variant: 'default',
-    autoComplete: 'on',
+    autocomplete: 'on',
   },
 )
 const emits = defineEmits([
@@ -139,7 +139,7 @@ const passwordRevealed = ref(false)
               { 'pl-12': withIcon && iconPlacement === 'left' },
             )
           "
-          :auto-complete
+          :autocomplete
           @input="handleInput"
           @focus="emits('focus', $event)"
           @blur="emits('blur', $event)"
@@ -173,7 +173,7 @@ const passwordRevealed = ref(false)
               { '!pr-12': withIcon && iconPlacement === 'right' },
               { '!pl-12': withIcon && iconPlacement === 'left' },
             ]"
-          :auto-complete
+          :autocomplete
             placeholder=""
 
             @input="handleInput"

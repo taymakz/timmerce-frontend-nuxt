@@ -72,7 +72,7 @@ async function submit() {
                      { 'bg-sc-background border-primary': isFocused },
           )"
 
-          auto-complete="off"
+          autocomplete="off"
           @focus="changeFocusState(true)"
         >
           <template #icon>
