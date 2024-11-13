@@ -54,7 +54,7 @@ export function UserGetCurrentDetail(): Promise<
 }
 
 export function UserLogout(refresh: string): Promise<ApiResponseType<null>> {
-  return FetchApi(`${basePrefix}logout/`, {
+  return ClientApi(`${basePrefix}logout/`, {
     method: 'POST',
     body: JSON.stringify({
       refresh,
