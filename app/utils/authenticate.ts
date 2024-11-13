@@ -10,7 +10,12 @@ export function getAuthenticateTokens(): AuthenticateTokensType | null {
     return null
   }
 }
-export function isAuthenticateAccessTokenExpired(): boolean {
-  const tokens = getAuthenticateTokens()
-  return !tokens || Math.floor(Date.now() / 1000) > tokens.access_exp
+export function isAuthenticateAccessTokenExpired(exp?: number): boolean {
+  // Use the provided `exp` if available; otherwise, retrieve from `getAuthenticateTokens()`
+  const accessExp = exp ?? getAuthenticateTokens()?.access_exp
+  // If `accessExp` is still undefined, tokens are not available or invalid
+  if (!accessExp)
+    return true
+  // Check if the current time has surpassed `accessExp`
+  return Math.floor(Date.now() / 1000) > accessExp
 }

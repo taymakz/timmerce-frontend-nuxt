@@ -50,7 +50,7 @@ export async function UserAuthenticateOneTimePassword(
 export function UserGetCurrentDetail(): Promise<
   ApiResponseType<UserDetailType>
 > {
-  return FetchApi(`${basePrefix}request/current/`)
+  return ClientApi(`${basePrefix}request/current/`)
 }
 
 export function UserLogout(refresh: string): Promise<ApiResponseType<null>> {
