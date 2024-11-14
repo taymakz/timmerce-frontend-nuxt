@@ -6,6 +6,7 @@ export enum LinksHeaderTypeEnum {
 }
 
 export interface LinksHeaderDetailType {
+  id: number
   image: number | null
   link_type: LinksHeaderTypeEnum
   title: string
