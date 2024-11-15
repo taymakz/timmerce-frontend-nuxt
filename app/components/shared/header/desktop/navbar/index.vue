@@ -36,7 +36,6 @@ function getLinksByType(type: LinksHeaderTypeEnum) {
 // Create computed properties for each link type
 const defaultLinks = getLinksByType(LinksHeaderTypeEnum.DEFAULT)
 const dropdownLinks = getLinksByType(LinksHeaderTypeEnum.DROPDOWN)
-const normalMenuLinks = getLinksByType(LinksHeaderTypeEnum.NORMAL_MENU)
 const megaMenuLinks = getLinksByType(LinksHeaderTypeEnum.MEGA_MENU)
 
 // Indicator Section
@@ -46,8 +45,8 @@ onMounted(async () => {
   await nextTick() // Wait for DOM updates
 
   if (navWrapper.value && indicator.value) {
-    // Select all direct children of the navWrapper
-    const firstLayerChildren = navWrapper.value.children
+    // Select all direct (first-layer) children of navWrapper
+    const firstLayerChildren = navWrapper.value.querySelectorAll(':scope > *')
 
     // Add mouseenter event listener to each first-layer child
     Array.from(firstLayerChildren).forEach((child) => {
@@ -87,13 +86,12 @@ onMounted(async () => {
 </script>
 
 <template>
-  <nav ref="navWrapper" class="container flex items-center gap-2">
+  <nav ref="navWrapper" class="container flex items-center pb-1">
     <ClientOnly>
-      <div ref="indicator" class="absolute bottom-0 end-0 z-0 h-[0.15625rem] w-0 touch-none rounded-full bg-primary transition-all duration-300 ease-[ease]" />
+      <div ref="indicator" class="pointer-events-none absolute bottom-1 end-0 z-0 h-[0.15625rem] w-0 touch-none rounded-full bg-primary transition-all duration-300 ease-[ease]" />
     </ClientOnly>
 
     <MegaMenuLink :items="megaMenuLinks" />
-    <NormalMenuLink :items="normalMenuLinks" />
     <DefaultLink :items="defaultLinks" />
     <DropdownLink :items="dropdownLinks" />
   </nav>

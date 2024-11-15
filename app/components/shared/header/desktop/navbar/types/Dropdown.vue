@@ -11,7 +11,7 @@ defineProps<{
     <UiHoverCard :open-delay="0" :close-delay="0">
       <UiHoverCardTrigger>
         <div
-          class="flex cursor-pointer items-center gap-2 rounded-lg px-2 pb-3 text-sm text-sc-foreground/85"
+          class="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 pb-3 text-sm text-sc-foreground/85"
         >
           <span
             v-if="item.icon"
@@ -21,7 +21,7 @@ defineProps<{
           {{ item.title }}
         </div>
       </UiHoverCardTrigger>
-      <UiHoverCardContent class="w-50 p-1" align="start">
+      <UiHoverCardContent class="w-50 p-1 mt-1" align="start" >
         <ul>
           <li
             v-for="child in (item.childrens || []).sort((a, b) => {

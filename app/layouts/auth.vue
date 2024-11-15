@@ -23,7 +23,7 @@ const { height } = useElementSize(cardWrapper)
       <CommonToggleTheme />
     </div>
     <div class="container relative">
-      <Card class="relative mx-auto max-w-[400px]">
+      <Card class="relative mx-auto py-6 max-w-[400px]">
         <Motion
           tag="div"
           :initial="{ height: '100%' }"
