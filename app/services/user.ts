@@ -103,3 +103,19 @@ export function UserForgotPasswordReset(
     },
   })
 }
+
+
+export function UserSetSearchHistory(search: string): Promise<ApiResponseType<null>> {
+  return ClientApi(`${basePrefix}search-history/`, {
+    method: 'POST',
+    body: {
+      search,
+    },
+  })
+}
+
+export function UserClearSearchHistory(): Promise<ApiResponseType<null>> {
+  return ClientApi(`${basePrefix}search-history/`, {
+    method: 'DELETE',
+  })
+}

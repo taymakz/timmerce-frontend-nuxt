@@ -1,7 +1,7 @@
 import { jwtDecode } from 'jwt-decode'
 import { defineStore } from 'pinia'
 import { toast } from 'vue-sonner'
-import { UserGetCurrentDetail, UserLogout } from '~/services/user'
+import { UserClearSearchHistory, UserGetCurrentDetail, UserLogout, UserSetSearchHistory } from '~/services/user'
 import type { AuthenticateTokensType } from '~/types/account/authenticate'
 import type { UserDetailType } from '~/types/account/user'
 
@@ -163,7 +163,15 @@ export const useAuthenticateStore = defineStore('authenticate', () => {
     const backUrl: any = route.query.backUrl || '/'
     return await navigateTo(backUrl)
   }
-
+  const SetUserSearchHistory = (search: string): void => {
+    UserSetSearchHistory(search)
+  }
+  const ClearUserSearchHistory = (): void => {
+    if (userDetail.value) {
+      UserClearSearchHistory()
+      userDetail.value.search_histories = []
+    }
+  }
   // Return Store
   return {
     isLogin,
@@ -180,5 +188,7 @@ export const useAuthenticateStore = defineStore('authenticate', () => {
     RedirectToLogin,
     RefreshToken,
     getUsername,
+    SetUserSearchHistory,
+    ClearUserSearchHistory,
   }
 })

@@ -7,4 +7,7 @@ export interface UserDetailType {
   phone: string
   national_code: string
   has_password: boolean
+  search_histories: {
+    search: string
+  }[]
 }

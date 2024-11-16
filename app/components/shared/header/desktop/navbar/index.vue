@@ -88,7 +88,7 @@ onMounted(async () => {
 <template>
   <nav ref="navWrapper" class="container flex items-center pb-1">
     <ClientOnly>
-      <div ref="indicator" class="pointer-events-none absolute bottom-1 end-0 z-0 h-[0.15625rem] w-0 touch-none rounded-full bg-primary transition-all duration-300 ease-[ease]" />
+      <div ref="indicator" class="pointer-events-none absolute bottom-1 end-0 z-0 h-[0.15625rem] w-0 touch-none rounded-full bg-primary transition-all duration-500 ease-[ease]" />
     </ClientOnly>
 
     <MegaMenuLink :items="megaMenuLinks" />

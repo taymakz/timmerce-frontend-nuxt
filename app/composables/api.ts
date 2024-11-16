@@ -78,7 +78,7 @@ export async function ClientApi<T>(
   }
   catch (error: any) {
     // Handle unauthorized errors and attempt token refresh if needed
-    if (error.status === 401 && authStore.getUserTokens) {
+    if (error.status === 401) {
       await refreshToken()
       config.headers.Authorization = `Bearer ${tokens.access}`
       // Retry the request after token refresh

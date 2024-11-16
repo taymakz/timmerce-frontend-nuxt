@@ -5,3 +5,6 @@ import type { ApiResponseType } from "~/types/request";
 export function CatalogSearchHeader(search: string): Promise<ApiResponseType<CatalogSearchHeaderResultType | null>> {
   return FetchApi(`/catalog/search/header/?q=${search}`)
 }
+export function CatalogSearchHeaderPopulars(): Promise<ApiResponseType<string[]>> {
+  return FetchApi(`/catalog/search/header/populars/`)
+}

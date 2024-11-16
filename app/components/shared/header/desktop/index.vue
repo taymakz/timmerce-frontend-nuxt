@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import Account from './Account.vue'
 import Logo from './Logo.vue'
-import Search from './Search.vue'
+import Search from './search/index.vue'
 </script>
 
 <template>
@@ -21,7 +21,7 @@ import Search from './Search.vue'
     </div>
     <!-- Header Bottom - Navbar -->
     <div class="relative z-20 bg-sc-background duration-300 border-b shadow-sm" data-onscrollclass="-translate-y-full">
-      <SharedHeaderDesktopNavbar/>
+      <SharedHeaderDesktopNavbar />
     </div>
   </div>
 </template>
