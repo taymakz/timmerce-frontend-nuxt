@@ -8,68 +8,65 @@ import Categories from './Categories.vue'
 import Overlay from './Overlay.vue'
 import PopularSearchs from './PopularSearchs.vue'
 import RecentSearchs from './RecentSearchs.vue'
+import Products from './Products.vue'
 
 const router = useRouter()
 const route = useRoute()
+
+// Utility for checking if component is mounted
 const isMounted = useMounted()
+// Locks scrolling when necessary
 const isLocked = useWebScrollLock()
 
-const searchInput = ref(null)
+// Refs for DOM elements and states
+const searchInput = ref<HTMLInputElement | null>(null)
 const searchWrapper = ref<HTMLDivElement | null>(null)
 const resultWrapper = ref<HTMLDivElement | null>(null)
 const { height: resultWrapperHeight } = useElementSize(resultWrapper)
 
+// Focus state management
 const isFocused = ref<boolean>(false)
 function changeFocusState(state: boolean) {
   isFocused.value = state
   isLocked.value = state
 }
+
+// Close the search wrapper when clicking outside
 onClickOutside(searchWrapper, () => changeFocusState(false))
 
-const search = ref<string>('')
-const searchLoading = ref(false)
-const searchResult = ref<CatalogSearchHeaderResultType | null>(null)
-const searchPerformed = ref(false) // New flag to track if search was performed
+// Search-related states
+const { search, searchLoading, searchResult, searchPerformed } = useHeaderSearch();
 
-watchDebounced(search, async () => {
-  if (search.value.length < 3) {
-    searchPerformed.value = false // Reset the flag when input length is insufficient
-    return
-  }
-
-  searchLoading.value = true
-  const result = await CatalogSearchHeader(search.value)
-  searchPerformed.value = true // Mark the search as performed
-
-  if (result.success)
-    searchResult.value = result.data
-
-  searchLoading.value = false
-}, { debounce: 500, maxWait: 3000 })
-
+// Store reference for authentication
 const authStore = useAuthenticateStore()
+
+// Submit function for performing a search
 async function submit() {
   if (!search.value)
     return
-  changeFocusState(false)
 
-  if (searchInput.value) {
-    (searchInput.value as any).blur()
-  }
+  // Close the search input and blur the field
+  changeFocusState(false)
+  searchInput.value?.blur()
+
+  // Save search history and navigate to the search results page
   authStore.SetUserSearchHistory(search.value)
-  await router.push({
-    path: '/search',
-    query: { q: search.value },
-  })
+  await router.push({ path: '/search', query: { q: search.value } })
+
+  // Reset search input and results
   search.value = ''
   searchResult.value = null
 }
-// Watch for Route if changes Toggle off every thing
-watch(() => route.fullPath, () => {
-  search.value = ''
-  searchResult.value = null
-  changeFocusState(false)
-})
+
+// Watch route changes to reset search state
+watch(
+  () => route.fullPath,
+  () => {
+    search.value = ''
+    searchResult.value = null
+    changeFocusState(false)
+  },
+)
 </script>
 
 <template>
@@ -126,8 +123,9 @@ watch(() => route.fullPath, () => {
                   حداقل 3 کاراکتر بنویسید
                 </div>
 
-                <!-- Category & Brand -->
+  
                 <div class="py-3">
+                  <Products :items="searchResult?.products || []" />
                   <Categories :items="searchResult?.categories || []" />
                   <Brands :items="searchResult?.brands || []" />
                 </div>

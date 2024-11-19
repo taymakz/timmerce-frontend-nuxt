@@ -1,3 +1,7 @@
+export function getMediaUrl(imageName: string): string {
+  return `/media/${imageName}`
+}
+
 // Split number by , 10000 => 10,000
 export function splitNumber(value: number | string | null) {
   if (value === null || value === undefined || value === 0)

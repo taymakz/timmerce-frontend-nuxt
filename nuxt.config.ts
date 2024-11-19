@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     '@vueuse/motion/nuxt',
     '@oku-ui/motion-nuxt',
     '@formkit/auto-animate',
+    'nuxt-swiper',
   ],
   routeRules: {
     '/auth/**': { ssr: false, appMiddleware: 'should-be-logged-out' },
@@ -125,6 +126,19 @@ export default defineNuxtConfig({
       standalone: false,
     },
   },
+  image: {
 
+    // domains: !import.meta.dev ? import.meta.env.NUXT_PUBLIC_IMAGE_DOMAINS?.split(',') ?? [] : ['localhost:8000', 'http://localhost:8000'],
+
+    // alias: {
+    //   media: !import.meta.dev ? import.meta.env.NUXT_PUBLIC_BASE_STORAGE || '' : 'http://localhost:8000/media',
+    // },
+    domains: [
+      'localhost:8000'
+    ],
+    alias: {
+      media: 'http://localhost:8000/media'
+    }
+  },
   compatibilityDate: '2024-10-10',
 })
