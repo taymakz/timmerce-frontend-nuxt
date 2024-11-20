@@ -85,7 +85,6 @@ const activeMenu = ref(0)
               >
                 <NuxtLink :to="thirdChild.link"
                   class="text-sm duration-200 hover:text-primary"
-                  :class="{ 'text-text/40': !thirdChild.public }"
                 >
                   {{ thirdChild.title }}
                 </NuxtLink>
