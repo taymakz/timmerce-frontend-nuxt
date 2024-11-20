@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <div v-show="(items.length || 0) !== 0" class="py-3 space-y-2">
-    <Separator label="دسته بندی ها" label-class="bg-sc-background text-sm text-muted-foreground" />
+    <Separator label="دسته بندی ها" label-class="bg-sc-background text-sm xl:text-base text-muted-foreground" />
 
     <ul>
       <li v-for="category in items" :key="category.url">

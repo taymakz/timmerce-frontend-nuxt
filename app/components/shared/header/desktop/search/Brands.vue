@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <div v-show="(items.length || 0) !== 0" class="py-3 space-y-2">
-    <Separator label="برند ها" label-class="bg-sc-background text-sm text-muted-foreground" />
+    <Separator label="برند ها" label-class="bg-sc-background text-sm xl:text-base text-muted-foreground" />
     <ul>
       <li v-for="brand in items" :key="brand.url">
         <NuxtLink :to="brand.url" class="flex items-center gap-1 py-2 text-sc-foreground hover:text-primary duration-200">
