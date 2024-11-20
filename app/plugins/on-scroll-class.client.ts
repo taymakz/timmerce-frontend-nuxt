@@ -1,39 +1,41 @@
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.hook('page:finish', () => {
   // Select elements with the data attribute
-  const elementsWithScrollClass = document.querySelectorAll<HTMLElement>(
-    '[data-onscrollclass]',
-  )
+    const elementsWithScrollClass = document.querySelectorAll<HTMLElement>(
+      '[data-onscrollclass]',
+    )
 
-  let prevScrollPos = document.documentElement.scrollTop
+    let prevScrollPos = document.documentElement.scrollTop
 
-  const handleScroll = () => {
-    const currentScrollPos = document.documentElement.scrollTop
+    const handleScroll = () => {
+      const currentScrollPos = document.documentElement.scrollTop
 
-    elementsWithScrollClass.forEach((element) => {
+      elementsWithScrollClass.forEach((element) => {
       // Split the classes defined in data-onscrollclass into an array
-      const onScrollClasses = element.dataset.onscrollclass?.split(' ') || []
+        const onScrollClasses = element.dataset.onscrollclass?.split(' ') || []
 
-      if (currentScrollPos > prevScrollPos && currentScrollPos > 60) {
+        if (currentScrollPos > prevScrollPos && currentScrollPos > 60) {
         // Scrolling Down - Add each class
-        onScrollClasses.forEach((scrollClass) => {
-          if (scrollClass) {
-            element.classList.add(scrollClass.trim())
-          }
-        })
-      }
-      else {
+          onScrollClasses.forEach((scrollClass) => {
+            if (scrollClass) {
+              element.classList.add(scrollClass.trim())
+            }
+          })
+        }
+        else {
         // Scrolling Up - Remove each class
-        onScrollClasses.forEach((scrollClass) => {
-          if (scrollClass) {
-            element.classList.remove(scrollClass.trim())
-          }
-        })
-      }
-    })
+          onScrollClasses.forEach((scrollClass) => {
+            if (scrollClass) {
+              element.classList.remove(scrollClass.trim())
+            }
+          })
+        }
+      })
 
-    prevScrollPos = currentScrollPos
-  }
+      prevScrollPos = currentScrollPos
+    }
 
-  // Listen to scroll events
-  window.addEventListener('scroll', handleScroll)
+    // Listen to scroll events
+    window.addEventListener('scroll', handleScroll)
+  })
 })
