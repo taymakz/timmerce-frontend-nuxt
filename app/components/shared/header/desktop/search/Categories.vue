@@ -11,7 +11,7 @@ defineProps<{
   <div v-show="(items.length || 0) !== 0" class="py-3 space-y-2">
     <Separator label="دسته بندی ها" label-class="bg-sc-background text-sm text-muted-foreground" />
 
-    <ul v-auto-animate>
+    <ul>
       <li v-for="category in items" :key="category.url">
         <NuxtLink :to="category.url" class="flex items-center gap-1 py-2 text-sc-foreground hover:text-primary duration-200">
           دسته {{ category.title_ir }}

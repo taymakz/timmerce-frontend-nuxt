@@ -13,7 +13,7 @@ const { data } = await useAsyncData(
 </script>
 
 <template>
-  <div v-if="(data?.data.length || 0) !== 0">
+  <div v-if="(data?.data?.length || 0) !== 0">
     <div class="flex items-center gap-4 mb-4">
       <Icon name="ph-fire" class="size-6 text-muted-foreground" />
       جستجوهای پرتکرار

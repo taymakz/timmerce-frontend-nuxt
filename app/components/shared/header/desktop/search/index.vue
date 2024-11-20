@@ -7,8 +7,8 @@ import Brands from './Brands.vue'
 import Categories from './Categories.vue'
 import Overlay from './Overlay.vue'
 import PopularSearchs from './PopularSearchs.vue'
-import RecentSearchs from './RecentSearchs.vue'
 import Products from './Products.vue'
+import RecentSearchs from './RecentSearchs.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -35,7 +35,7 @@ function changeFocusState(state: boolean) {
 onClickOutside(searchWrapper, () => changeFocusState(false))
 
 // Search-related states
-const { search, searchLoading, searchResult, searchPerformed } = useHeaderSearch();
+const { search, searchLoading, searchResult, searchPerformed } = useHeaderSearch()
 
 // Store reference for authentication
 const authStore = useAuthenticateStore()
@@ -104,7 +104,7 @@ watch(
                 :initial="{ opacity: 0 }"
                 :enter="{ opacity: 1 }"
                 :delay="200"
-                class="p-4"
+                class="p-4 "
               >
                 <!-- No Result Message -->
                 <div
@@ -119,18 +119,19 @@ watch(
                   نتیجه ایی یافت نشد
                 </div>
                 <!-- Minimum 3 Char Message -->
-                <div v-if="search.length < 3" class="text-sm text-muted-foreground text-center">
-                  حداقل 3 کاراکتر بنویسید
+                <div v-if="search.length < 3" class="text-sm text-muted-foreground text-center   flex justify-center ">
+                  <p class="pb-3 border-b border-dashed w-fit mb-3">
+                    حداقل 3 کاراکتر بنویسید
+                  </p>
                 </div>
 
-  
-                <div class="py-3">
+                <div>
                   <Products :items="searchResult?.products || []" />
                   <Categories :items="searchResult?.categories || []" />
                   <Brands :items="searchResult?.brands || []" />
                 </div>
                 <!-- History (Popular & User Recent Searchs) -->
-                <div class="py-3 space-y-6">
+                <div class="space-y-6">
                   <!-- User recenet searchs -->
                   <RecentSearchs />
                   <PopularSearchs />
