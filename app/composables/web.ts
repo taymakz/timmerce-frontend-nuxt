@@ -3,8 +3,10 @@ export function useOnScrollClass(scrollThreshold: number = 60) {
   let previousScroll = 0
 
   const handleScroll = () => {
+    // Normal scrolling logic
     const currentScroll = window.scrollY
-    isScrollingDown.value = currentScroll > previousScroll && currentScroll > scrollThreshold
+    if (previousScroll !== 0)
+      isScrollingDown.value = currentScroll > previousScroll && currentScroll > scrollThreshold
     previousScroll = currentScroll
   }
 
