@@ -20,7 +20,7 @@ import Search from './search/index.vue'
       </div>
     </div>
     <!-- Header Bottom - Navbar -->
-    <div class="relative z-20 bg-sc-background duration-300 border-b shadow-sm" data-onscrollclass="-translate-y-full">
+    <div class="relative z-20 bg-sc-background duration-300 border-b shadow-sm transition-transform" v-onscrollclass="['-translate-y-full']">
       <SharedHeaderDesktopNavbar />
     </div>
   </div>

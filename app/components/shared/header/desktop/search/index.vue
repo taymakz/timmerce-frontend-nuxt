@@ -1,17 +1,12 @@
 <script lang="ts" setup>
 import Input from '~/components/ui/input/Input.vue'
 import { appName } from '~/constants'
-import { CatalogSearchHeader } from '~/services/catalog/search-header'
-import type { CatalogSearchHeaderResultType } from '~/types/catalog/search-header'
-import Brands from './Brands.vue'
-import Categories from './Categories.vue'
+import Brands from '../../search/Brands.vue'
+import Categories from '../../search/Categories.vue'
+import PopularSearchs from '../../search/PopularSearchs.vue'
+import Products from '../../search/Products.vue'
+import RecentSearchs from '../../search/RecentSearchs.vue'
 import Overlay from './Overlay.vue'
-import PopularSearchs from './PopularSearchs.vue'
-import Products from './Products.vue'
-import RecentSearchs from './RecentSearchs.vue'
-
-const router = useRouter()
-const route = useRoute()
 
 // Utility for checking if component is mounted
 const isMounted = useMounted()
@@ -19,7 +14,6 @@ const isMounted = useMounted()
 const isLocked = useWebScrollLock()
 
 // Refs for DOM elements and states
-const searchInput = ref<HTMLInputElement | null>(null)
 const searchWrapper = ref<HTMLDivElement | null>(null)
 const resultWrapper = ref<HTMLDivElement | null>(null)
 const { height: resultWrapperHeight } = useElementSize(resultWrapper)
@@ -34,39 +28,14 @@ function changeFocusState(state: boolean) {
 // Close the search wrapper when clicking outside
 onClickOutside(searchWrapper, () => changeFocusState(false))
 
-// Search-related states
-const { search, searchLoading, searchResult, searchPerformed } = useHeaderSearch()
-
-// Store reference for authentication
-const authStore = useAuthenticateStore()
-
-// Submit function for performing a search
-async function submit() {
-  if (!search.value)
-    return
-
-  // Close the search input and blur the field
-  changeFocusState(false)
-  searchInput.value?.blur()
-
-  // Save search history and navigate to the search results page
-  authStore.SetUserSearchHistory(search.value)
-  await router.push({ path: '/search', query: { q: search.value } })
-
-  // Reset search input and results
-  search.value = ''
-  searchResult.value = null
-}
-
-// Watch route changes to reset search state
-watch(
-  () => route.fullPath,
-  () => {
-    search.value = ''
-    searchResult.value = null
-    changeFocusState(false)
-  },
-)
+const {
+  search,
+  searchLoading,
+  searchResult,
+  searchPerformed,
+  searchInput,
+  submit,
+} = useSearchHandler(changeFocusState)
 </script>
 
 <template>
