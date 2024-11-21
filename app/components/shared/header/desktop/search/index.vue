@@ -1,11 +1,7 @@
 <script lang="ts" setup>
 import Input from '~/components/ui/input/Input.vue'
 import { appName } from '~/constants'
-import Brands from '../../search/Brands.vue'
-import Categories from '../../search/Categories.vue'
-import PopularSearchs from '../../search/PopularSearchs.vue'
-import Products from '../../search/Products.vue'
-import RecentSearchs from '../../search/RecentSearchs.vue'
+import Wrapper from '../../search/wrapper.vue'
 import Overlay from './Overlay.vue'
 
 // Utility for checking if component is mounted
@@ -75,36 +71,12 @@ const {
                 :delay="200"
                 class="p-4 "
               >
-                <!-- No Result Message -->
-                <div
-                  v-if="
-                    searchPerformed
-                      && !searchLoading
-                      && search.length > 3
-                      && (searchResult?.brands.length === 0 && searchResult?.categories.length === 0 && searchResult?.products.length === 0)
-                  "
-                  class="text-muted-foreground text-center"
-                >
-                  نتیجه ایی یافت نشد
-                </div>
-                <!-- Minimum 3 Char Message -->
-                <div v-if="search.length < 3" class="text-sm text-muted-foreground text-center   flex justify-center ">
-                  <p class="pb-3 border-b border-dashed w-fit mb-3">
-                    حداقل 3 کاراکتر بنویسید
-                  </p>
-                </div>
-
-                <div>
-                  <Products :items="searchResult?.products || []" />
-                  <Categories :items="searchResult?.categories || []" />
-                  <Brands :items="searchResult?.brands || []" />
-                </div>
-                <!-- History (Popular & User Recent Searchs) -->
-                <div class="space-y-6">
-                  <!-- User recenet searchs -->
-                  <RecentSearchs />
-                  <PopularSearchs />
-                </div>
+                <Wrapper
+                  :search
+                  :search-performed
+                  :search-loading
+                  :search-result
+                />
               </div>
             </div>
           </div>
