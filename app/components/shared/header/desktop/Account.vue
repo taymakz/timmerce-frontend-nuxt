@@ -32,6 +32,9 @@ const authStore = useAuthenticateStore()
       <template v-else>
         <Popover>
           <PopoverTrigger>
+            <div class="sr-only">
+              حساب کاربری
+            </div>
             <div
               class="flex size-10 items-center justify-center rounded-lg border text-sc-foreground duration-300  hover:bg-background"
             >

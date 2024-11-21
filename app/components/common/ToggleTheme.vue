@@ -59,6 +59,9 @@ function toggle(event?: MouseEvent) {
     class="flex size-10 items-center justify-center rounded-lg border text-sc-foreground duration-300  hover:bg-background "
     @click="toggle"
   >
+  <div class="sr-only">
+              تم وبسایت
+            </div>
     <Icon name="i-lucide-sun" class="hidden size-5 dark:block" />
     <Icon name="i-lucide-moon" class="size-5 dark:hidden" />
   </button>
