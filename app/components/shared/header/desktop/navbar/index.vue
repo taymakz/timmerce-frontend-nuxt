@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { LinksHeaderGet } from '~/services/links'
 import { LinksHeaderTypeEnum } from '~/types/links'
+import Seo from './Seo.vue'
 import DefaultLink from './types/Default.vue'
 import DropdownLink from './types/Dropdown.vue'
 import MegaMenuLink from './types/MegaMenu.vue'
-import NormalMenuLink from './types/NormalMenu.vue'
 
 const { data } = await useAsyncData(
   'links-header',
@@ -87,6 +87,7 @@ onMounted(async () => {
 
 <template>
   <nav ref="navWrapper" class="container flex items-center pb-1">
+    <Seo :items="data?.data || []" />
     <ClientOnly>
       <div ref="indicator" class="pointer-events-none absolute bottom-1 end-0 z-0 h-[0.15625rem] w-0 touch-none rounded-full bg-primary transition-all duration-500 ease-[ease]" />
     </ClientOnly>

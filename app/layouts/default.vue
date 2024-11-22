@@ -7,7 +7,7 @@ import SharedHeader from '@/components/shared/header/index.vue'
   <div>
     <div class="flex min-h-screen flex-col">
       <SharedHeader />
-      <main class="flex-grow pt-[130px]">
+      <main class="flex-grow">
         <slot />
       </main>
       <SharedFooter />
