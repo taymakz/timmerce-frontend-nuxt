@@ -24,7 +24,7 @@ const props = withDefaults(
     autofocus?: boolean
     withErrorMessage?: boolean
     withIcon?: boolean
-    autocomplete?: 'on'|'off'
+    autocomplete?: 'on' | 'off'
   }>(),
   {
     type: 'text',
@@ -127,6 +127,7 @@ const passwordRevealed = ref(false)
           v-model="modelValue"
           :name
           :dir
+          :disabled
           :placeholder="label"
           :type="passwordRevealed ? 'text' : props.type"
           :class="
@@ -161,9 +162,9 @@ const passwordRevealed = ref(false)
           <input
             :id="randomId"
             ref="inputRef"
-          :dir
-
             v-model="modelValue"
+
+            :dir
             :name
             :type="passwordRevealed ? 'text' : props.type"
             class="peer"
@@ -173,8 +174,9 @@ const passwordRevealed = ref(false)
               { '!pr-12': withIcon && iconPlacement === 'right' },
               { '!pl-12': withIcon && iconPlacement === 'left' },
             ]"
-          :autocomplete
+            :autocomplete
             placeholder=""
+            :disabled
 
             @input="handleInput"
             @focus="emits('focus', $event)"
