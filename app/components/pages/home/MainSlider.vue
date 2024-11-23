@@ -10,7 +10,6 @@ const isMounted = useMounted()
 const containerRef = ref(null)
 const swiper = useSwiper(containerRef, {
   loop: true,
-
 })
 </script>
 
@@ -18,17 +17,9 @@ const swiper = useSwiper(containerRef, {
   <div>
     <!-- Skeleton -->
     <Skeleton v-if="!isMounted" class="aspect-[2/1] object-cover sm:block md:aspect-[3/1] lg:aspect-[4/1] xl:aspect-[5/1] max-h-[400px] w-full  animate-pulse shadow " />
-    <!-- Seo -->
-    <div class="sr-only">
-      <div v-for="(banner, index) in banners" :key="index">
-        <NuxtLink :to="banner.url" :external="banner.external_url" :target="banner.external_url ? '_blank' : '_self'">
-          <NuxtImg loading="lazy" :alt="banner.title" :src="getMediaUrl(banner.normal_banner)" width="1920" height="350" />
-        </NuxtLink>
-      </div>
-    </div>
     <!-- Original Content -->
-    <div>
-      <ClientOnly>
+    <div :class="{'sr-only':!isMounted}">
+
         <div class="relative group">
           <swiper-container
             ref="containerRef"
@@ -60,7 +51,7 @@ const swiper = useSwiper(containerRef, {
             </button>
           </div>
         </div>
-      </ClientOnly>
+   
     </div>
   </div>
 </template>
