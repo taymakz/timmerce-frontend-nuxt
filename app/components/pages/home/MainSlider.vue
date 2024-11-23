@@ -11,7 +11,6 @@ const containerRef = ref(null)
 const swiper = useSwiper(containerRef, {
   loop: true,
 
-
 })
 </script>
 
@@ -35,10 +34,9 @@ const swiper = useSwiper(containerRef, {
             ref="containerRef"
             dir="rtl"
             :pagination="{
-              clickable:true
+              clickable: true,
             }"
             class="main-slider"
-
           >
             <swiper-slide v-for="(banner, index) in banners" :key="index">
               <NuxtLink :to="banner.url" :external="banner.external_url" :target="banner.external_url ? '_blank' : '_self'">
@@ -48,17 +46,17 @@ const swiper = useSwiper(containerRef, {
             </swiper-slide>
           </swiper-container>
           <div class="lg:opacity-0 group-hover:opacity-100 duration-200 absolute bottom-10 right-6 flex gap-1.5 z-10 pointer-events-none">
-            <button class="pointer-events-auto flex items-center justify-center size-9 bg-sc-background rounded-full text-primary border" @click="swiper.prev()">
+            <button class="pointer-events-auto flex items-center justify-center size-9 bg-sc-background rounded-full border" @click="swiper.prev()">
               <span class="sr-only">
                 Preview
               </span>
-              <Icon name="i-lucide-chevron-right" class="size-6" />
+              <Icon name="i-lucide-chevron-right" class="size-5" />
             </button>
-            <button class="pointer-events-auto flex items-center justify-center size-9 bg-sc-background rounded-full text-primary border" @click="swiper.next()">
+            <button class="pointer-events-auto flex items-center justify-center size-9 bg-sc-background rounded-full border" @click="swiper.next()">
               <span class="sr-only">
                 Next
               </span>
-              <Icon name="i-lucide-chevron-left" class="size-6" />
+              <Icon name="i-lucide-chevron-left" class="size-5" />
             </button>
           </div>
         </div>
@@ -70,10 +68,10 @@ const swiper = useSwiper(containerRef, {
 <style  lang="postcss">
 swiper-container::part(bullet-active),
 swiper-container::part(bullet) {
-    @apply size-2 duration-300 bg-black
+    @apply size-1.5 duration-300 bg-black
 }
 
 swiper-container::part(bullet-active) {
-    @apply bg-primary rounded-lg w-5
+    @apply bg-white rounded-lg w-5
 }
 </style>
