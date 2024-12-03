@@ -29,9 +29,13 @@ const { data, error, status, refresh } = await useAsyncData('page-home-common-da
 
     <div v-else>
       <MainSlider :banners="data.data.banners.filter(b => b.position === BannerPositionEnum.SOLO_FULL_WIDTH_SLIDER)" />
-        <GroupTwoBanners :banners="data.data.banners.filter(b => b.position === BannerPositionEnum.GROUP_TWO_BANNER).slice(0, 2)" />
-      <GroupFourBanners :banners="data.data.banners.filter(b => b.position === BannerPositionEnum.GROUP_FOUR_BANNER).slice(0, 4)" />
       <CommonEcommerceProductSliderWrapper title="جدیدترین های ویژه" description="حداقل 60% تخفیف" url="/search/?special=1" />
+      <GroupFourBanners :banners="data.data.banners.filter(b => b.position === BannerPositionEnum.GROUP_FOUR_BANNER).slice(0, 4)" />
+      <CommonEcommerceProductSliderWrapper title="پرفروش ترین" url="/search/?most_sale=1" />
+      <CommonEcommerceProductSliderWrapper title="جدید ترین" url="/search/?sort=1" />
+
+      <GroupTwoBanners :banners="data.data.banners.filter(b => b.position === BannerPositionEnum.GROUP_TWO_BANNER).slice(0, 2)" />
+      <CommonEcommerceProductSliderWrapper title="پربازدید ترین" url="/search/?sort=2" />
     </div>
   </div>
 </template>
