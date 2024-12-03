@@ -119,11 +119,11 @@ watch(otp, () => {
       <li>
         <button
           :disabled="isPending || newOtpLoading"
-          class="flex items-center gap-x-1 text-sm text-primary duration-200 hover:text-primary/80"
+          class="flex items-center gap-x-1 text-sm text-primary duration-200 hover:text-primary/80 cursor-pointer"
           @click="requestNewOTP"
         >
           <template v-if="isPending">
-            <span class="text-text/60">
+            <span class="text-muted-foreground">
               زمان باقی‌مانده تا ارسال مجدد
               <span class="font-semibold">{{ getFormattedCounter }}</span>
             </span>

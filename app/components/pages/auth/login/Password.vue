@@ -114,7 +114,7 @@ async function submit(_: any, formEvent: any) {
         <li>
           <button
             type="button"
-            class="flex items-center gap-x-1 text-sm text-primary duration-200 hover:text-primary/80"
+            class="flex items-center cursor-pointer gap-x-1 text-sm text-primary duration-200 hover:text-primary/80"
             @click="redirectToOTP"
           >
             <span>ورود با رمز یک بار مصرف</span>
@@ -126,7 +126,7 @@ async function submit(_: any, formEvent: any) {
         <li>
           <button
             type="button"
-            class="flex items-center gap-x-1 text-sm text-primary duration-200 hover:text-primary/80"
+            class="flex items-center cursor-pointer gap-x-1 text-sm text-primary duration-200 hover:text-primary/80"
             @click="redirectToForgot"
           >
             <span> فراموشی رمز عبور </span>

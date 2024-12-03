@@ -180,6 +180,9 @@
   .scroll-lock{
     @apply overflow-y-scroll fixed w-full top-[var(--window-scroll-top)]
   }
+  button{
+    @apply cursor-default
+  }
 }
 
 

@@ -22,7 +22,7 @@ const authStore = useAuthenticateStore()
     <template v-else>
       <!-- Login / Register -->
       <template v-if="!authStore.isLogin">
-        <NuxtLink v-if="!authStore.isLogin" to="/auth/login" class="flex items-center justify-center gap-2 h-10 px-3 text-sm text-sc-foreground border rounded-lg hover:bg-background transition-all duration-200">
+        <NuxtLink v-if="!authStore.isLogin" to="/auth/login" class="flex items-center justify-center gap-2 h-10 px-3 text-sm text-sc-foreground border rounded-lg hover:bg-background transition-all duration-200 cursor-default">
           <Icon name="i-lucide-user-round" class=" size-5" />
 
           ورود / ثبت‌ نام
@@ -42,7 +42,7 @@ const authStore = useAuthenticateStore()
             </div>
           </PopoverTrigger>
           <PopoverContent align="center" class="p-1 w-60 rounded-xl">
-            <ul class="space-y-2">
+            <ul class="space-y-2 [&>li>a]:cursor-default">
               <li>
                 <div class="block  overflow-hidden px-2">
                   <div class="border-b py-2 w-full flex items-center justify-between gap-4">
