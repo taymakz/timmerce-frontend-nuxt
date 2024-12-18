@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import Input from '~/components/ui/input/Input.vue'
 import { appDesktopStartMinWidth, appName } from '~/constants'
-import Wrapper from '../search/wrapper.vue';
+import Wrapper from '../search/wrapper.vue'
 
 const isSearchFocused = defineModel<boolean>()
 
@@ -23,7 +23,6 @@ const {
   submit,
 } = useSearchHandler(changeFocusState)
 const isDesktop = useMediaQuery(appDesktopStartMinWidth)
-
 </script>
 
 <template>
@@ -59,18 +58,29 @@ const isDesktop = useMediaQuery(appDesktopStartMinWidth)
     <!-- Popover -->
     <Teleport to="body">
       <ClientOnly>
-        <div v-if="isSearchFocused && !isDesktop" v-motion-fade class="z-40 [--distance:65px] fixed lg:hidden inset-0 h-[calc(100dvh-var(--distance))] bg-sc-background mt-[var(--distance)] border-t  ">
+        <Motion 
+        :initial="{ opacity: 0 }"
+         :animate="{ opacity: 1}"
+        
+        v-if="isSearchFocused && !isDesktop"  class="z-40 [--distance:65px] fixed lg:hidden inset-0 h-[calc(100dvh-var(--distance))] bg-sc-background mt-[var(--distance)] border-t  ">
           <div class=" overflow-y-auto h-full py-4">
-            <div v-motion-fade class="container">
+            <Motion 
+            :initial="{ opacity: 0 }"
+                :animate="{ opacity: 1,
+                            transition: {
+                              delay: 0.2,
+                            } }"
+            class="container">
               <Wrapper
+             
                 :search
                 :search-performed
                 :search-loading
                 :search-result
               />
-            </div>
+            </Motion>
           </div>
-        </div>
+        </Motion>
       </ClientOnly>
     </Teleport>
   </div>

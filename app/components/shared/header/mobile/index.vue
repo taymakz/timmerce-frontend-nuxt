@@ -9,7 +9,9 @@ const { isScrollingDown } = useOnScrollClass(60)
 <template>
   <div class="flex flex-col">
     <!-- Header Top -->
-    <div class="bg-sc-background relative z-30 duration-300 transition-transform" :class="{ '-translate-y-[65px]': isSearchFocused }">
+    <div 
+    class="bg-sc-background relative z-30 duration-300 transition-transform" 
+    :class="{ '-translate-y-[65px]': isSearchFocused }">
       <div class="container flex items-center justify-between gap-8 py-2 transition-transform">
         <Logo />
         <div class="flex gap-2">

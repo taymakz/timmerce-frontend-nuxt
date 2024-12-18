@@ -61,14 +61,31 @@ const {
       </form>
       <!-- Search Popover -->
       <ClientOnly>
-        <div v-if="isFocused" class="z-20 absolute left-0 top-16 w-full bg-sc-background rounded-lg border overflow-hidden">
-          <div :style="{ height: `${resultWrapperHeight}px` }" class="duration-200">
+        <AnimatePresence>
+          <Motion
+            v-if="isFocused"
+            layout
+            :variants="{
+              open: {
+                height: `${resultWrapperHeight}px`,
+                opacity:1
+              },
+              closed: {
+                height: 0,
+                opacity:0
+              },
+            }"
+            initial="closed"
+            exit="closed"
+            animate="open" class="z-20 absolute left-0 top-16 w-full bg-sc-background rounded-lg border overflow-hidden"
+          >
             <div ref="resultWrapper" class="max-h-[80dvh] overflow-y-auto">
-              <div
-                v-motion
+              <Motion
                 :initial="{ opacity: 0 }"
-                :enter="{ opacity: 1 }"
-                :delay="200"
+                :animate="{ opacity: 1,
+                            transition: {
+                              delay: 0.2,
+                            } }"
                 class="p-4 "
               >
                 <Wrapper
@@ -77,10 +94,10 @@ const {
                   :search-loading
                   :search-result
                 />
-              </div>
+              </Motion>
             </div>
-          </div>
-        </div>
+          </Motion>
+        </AnimatePresence>
       </ClientOnly>
     </div>
     <!-- Overlay -->
