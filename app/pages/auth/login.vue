@@ -36,15 +36,23 @@ const sections = shallowRef<sectionsType[]>([
 
 <template>
   <div>
-    <template v-for="section in sections" :key="section.name">
-      <component
-        :is="section.component"
-        v-if="authenticateSection === section.name"
-        v-model:can-login-with-password="canLoginWithPassword"
-        v-model:authenticate-section="authenticateSection"
-        v-model:username="username"
-      />
-    </template>
+    <animate-presence :initial="false" mode="wait" >
+      <template v-for="section in sections" :key="section.name">
+        <Motion
+          v-if="authenticateSection === section.name" :variants="{
+            visible: { opacity: 1 },
+            hidden: { opacity: 0 },
+          }" initial="hidden" animate="visible"
+          exit="hidden"
+        >
+          <component
+            :is="section.component"
+            v-model:can-login-with-password="canLoginWithPassword" v-model:authenticate-section="authenticateSection"
+            v-model:username="username"
+          />
+        </Motion>
+      </template>
+    </animate-presence>
   </div>
 </template>
 

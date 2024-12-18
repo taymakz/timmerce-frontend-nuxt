@@ -1,10 +1,7 @@
 import { setupInspiraUI } from '@inspira-ui/plugins'
-import svgToDataUri from 'mini-svg-data-uri'
+import tailwindAspectRatio from '@tailwindcss/aspect-ratio'
 import animate from 'tailwindcss-animate'
-
-// eslint-disable-next-line ts/ban-ts-comment
-// @ts-expect-error
-import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette'
+import tailwindcssBackgroundPatterns from 'tailwindcss-background-patterns'
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -39,41 +36,41 @@ export default {
       },
 
       colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        'border': 'hsl(var(--border))',
+        'input': 'hsl(var(--input))',
+        'ring': 'hsl(var(--ring))',
+        'background': 'hsl(var(--background))',
+        'foreground': 'hsl(var(--foreground))',
         'sc-background': 'hsl(var(--sc-background))',
         'sc-foreground': 'hsl(var(--sc-foreground))',
-        warning: 'hsl(var(--warning))',
-        success: 'hsl(var(--success))',
-        alert: 'hsl(var(--alert))',
-        primary: {
+        'warning': 'hsl(var(--warning))',
+        'success': 'hsl(var(--success))',
+        'alert': 'hsl(var(--alert))',
+        'primary': {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
         },
-        secondary: {
+        'secondary': {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
-        destructive: {
+        'destructive': {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
-        muted: {
+        'muted': {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
         },
-        accent: {
+        'accent': {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
         },
-        popover: {
+        'popover': {
           DEFAULT: 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))',
         },
-        card: {
+        'card': {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
@@ -121,43 +118,7 @@ export default {
   plugins: [
     animate,
     setupInspiraUI,
-    // eslint-disable-next-line ts/no-require-imports
-    require('@tailwindcss/aspect-ratio'),
-    addVariablesForColors,
-    function ({ matchUtilities, theme }: any) {
-      matchUtilities(
-        {
-          'bg-grid': (value: any) => ({
-            backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`,
-            )}")`,
-          }),
-          'bg-grid-small': (value: any) => ({
-            backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="8" height="8" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`,
-            )}")`,
-          }),
-          'bg-dot': (value: any) => ({
-            backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="1.6257413380501518"></circle></svg>`,
-            )}")`,
-          }),
-        },
-        {
-          values: flattenColorPalette(theme('backgroundColor')),
-          type: 'color',
-        },
-      )
-    },
+    tailwindAspectRatio,
+    tailwindcssBackgroundPatterns,
   ],
-}
-function addVariablesForColors({ addBase, theme }: any) {
-  const allColors = flattenColorPalette(theme('colors'))
-  const newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
-  )
-
-  addBase({
-    ':root': newVars,
-  })
 }

@@ -36,14 +36,24 @@ const sections = shallowRef<sectionsType[]>([
 
 <template>
   <div>
-    <template v-for="section in sections" :key="section.name">
-      <component
-        :is="section.component"
-        v-if="forgotSection === section.name"
-        v-model:forgot-section="forgotSection"
-        v-model:username="username"
-      />
-    </template>
+    <animate-presence :initial="false" mode="wait">
+      <template v-for="section in sections" :key="section.name">
+        <Motion
+          v-if="forgotSection === section.name" :variants="{
+            visible: { opacity: 1 },
+            hidden: { opacity: 0 },
+          }" initial="hidden" animate="visible"
+          exit="hidden"
+        >
+          <component
+            :is="section.component"
+
+            v-model:forgot-section="forgotSection"
+            v-model:username="username"
+          />
+        </Motion>
+      </template>
+    </animate-presence>
   </div>
 </template>
 

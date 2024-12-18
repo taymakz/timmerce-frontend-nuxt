@@ -18,10 +18,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/icon',
     '@vee-validate/nuxt',
-    '@vueuse/motion/nuxt',
-    '@oku-ui/motion-nuxt',
-    '@formkit/auto-animate',
     'nuxt-swiper',
+    'motion-v/nuxt',
   ],
   routeRules: {
     '/auth/**': { ssr: false, appMiddleware: 'should-be-logged-out' },
@@ -31,9 +29,6 @@ export default defineNuxtConfig({
     payloadExtraction: false,
     renderJsonPayloads: true,
     typedPages: true,
-  },
-  motion: {
-    prefix: 'Oku',
   },
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
